@@ -272,7 +272,7 @@ function procesarConjetura() {
   // Validar que sea un número válido dentro del rango
   if (isNaN(conjetura) || conjetura < RANGO_MIN || conjetura > rangoMax) {
     feedbackMsg.textContent =
-      "⚠️ Por favor, ingresa un número entre " +
+      "Por favor, ingresa un número entre " +
       RANGO_MIN +
       " y " +
       rangoMax +
@@ -286,7 +286,7 @@ function procesarConjetura() {
   // Verificar si ya intentó este número
   if (historialIntentos.includes(conjetura)) {
     feedbackMsg.textContent =
-      "🔁 Ya intentaste el número " + conjetura + ". Prueba con otro.";
+      "Ya intentaste el número " + conjetura + ". Prueba con otro.";
     feedbackMsg.className = "feedback-higher";
     guessInput.value = "";
     guessInput.focus();
@@ -299,7 +299,7 @@ function procesarConjetura() {
   // ---- CASO 1: El jugador acierta ----
   if (conjetura === numeroSecreto) {
     feedbackMsg.textContent =
-      "🎉 ¡Felicidades! Adivinaste el número " +
+      "¡Felicidades! Adivinaste el número " +
       numeroSecreto +
       " en " +
       intentoActual +
@@ -314,12 +314,12 @@ function procesarConjetura() {
     const esMAYOR = numeroSecreto > conjetura;
     if (esMAYOR) {
       feedbackMsg.textContent =
-        "📈 El número secreto es MAYOR que " + conjetura + ".";
+        "El número secreto es MAYOR que " + conjetura + ".";
       feedbackMsg.className = "feedback-higher";
       agregarChipHistorial(conjetura, "higher");
     } else {
       feedbackMsg.textContent =
-        "📉 El número secreto es MENOR que " + conjetura + ".";
+        "El número secreto es MENOR que " + conjetura + ".";
       feedbackMsg.className = "feedback-lower";
       agregarChipHistorial(conjetura, "lower");
     }
@@ -335,7 +335,7 @@ function procesarConjetura() {
     // ---- CASO 3: Se acabaron los intentos ----
   } else {
     feedbackMsg.textContent =
-      "💀 ¡Se acabaron tus intentos! El número era " + numeroSecreto + ".";
+      "¡Se acabaron tus intentos! El número era " + numeroSecreto + ".";
     feedbackMsg.className = "feedback-gameover";
     agregarChipHistorial(
       conjetura,
