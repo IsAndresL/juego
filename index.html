@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Juego del Número Mágico — Adivina el número secreto entre 1 y 100 en 10 intentos."
+    />
+    <title>Número Mágico 1.0</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ============================================
+       Contenedor principal del juego
+       ============================================ -->
+    <main id="game-container">
+      <!-- Encabezado decorativo -->
+      <header id="game-header">
+        <img src="ElHechicero.jpg" alt="El Hechicero" class="magic-icon">
+        <h1>Número Mágico</h1>
+        <p class="subtitle">
+          Adivina el número secreto entre <strong>1</strong> y
+          <strong id="subtitle-max">100</strong>
+        </p>
+        <!-- Botón para abrir/cerrar configuración -->
+        <button id="settings-toggle" type="button" title="Configuración">⚙️</button>
+      </header>
+
+      <!-- ============================================
+           Panel de configuración de dificultad
+           ============================================ -->
+      <section id="settings-panel" class="hidden">
+        <h2>Configuración</h2>
+
+        <!-- Slider: número máximo del rango -->
+        <div class="setting-row">
+          <label for="range-slider">Rango de números: 1 — <span id="range-value">100</span></label>
+          <input type="range" id="range-slider" min="10" max="1000" step="10" value="100">
+        </div>
+
+        <!-- Slider: número de intentos -->
+        <div class="setting-row">
+          <label for="attempts-slider">Intentos máximos: <span id="attempts-value">10</span></label>
+          <input type="range" id="attempts-slider" min="1" max="30" step="1" value="10">
+        </div>
+
+        <!-- Botón para aplicar configuración -->
+        <button id="apply-settings-btn" type="button">Aplicar y reiniciar</button>
+      </section>
+
+      <!-- Indicador de intentos restantes -->
+      <div id="attempts-bar">
+        <span class="label">Intentos restantes</span>
+        <div class="bar-track">
+          <div class="bar-fill" id="bar-fill"></div>
+        </div>
+        <span class="counter" id="attempts-counter">10 / 10</span>
+      </div>
+
+      <!-- Sección de entrada del jugador -->
+      <section id="input-section">
+        <div class="input-group">
+          <input
+            type="number"
+            id="guess-input"
+            min="1"
+            max="100"
+            placeholder="Escribe un número…"
+            aria-label="Tu conjetura"
+            autofocus
+          />
+          <button id="guess-btn" type="button">Adivinar</button>
+        </div>
+      </section>
+
+      <!-- Mensaje de retroalimentación -->
+      <section id="feedback-section" aria-live="polite">
+        <p id="feedback-message">
+          Buena suerte! Tienes 10 intentos para adivinar.
+        </p>
+      </section>
+
+      <!-- Historial de intentos anteriores -->
+      <section id="history-section">
+        <h2>Intentos anteriores</h2>
+        <div id="history-list" class="history-grid">
+          <!-- Los intentos se insertarán dinámicamente aquí -->
+          <p id="history-empty" class="empty-msg">Aún no hay intentos.</p>
+        </div>
+      </section>
+
+      <!-- Botón de reinicio (oculto inicialmente) -->
+      <button id="restart-btn" class="hidden" type="button">
+        Jugar de nuevo
+      </button>
+
+    <!-- Desarrollador yo -->
+    <footer id="game-footer">
+      <p>Desarrollado por <strong>Andres Luna</strong></p>
+      <!-- Botón secreto para revelar el número (oculto visualmente) -->
+      <button id="cheat-btn" type="button" title="·" aria-hidden="true">·</button>
+    </footer>
+    </main>
+
+    <!-- Partículas de fondo decorativas -->
+    <div id="particles" aria-hidden="true"></div>
+
+    <!-- Script del juego -->
+    <script src="script.js"></script>
+  </body>
+</html>

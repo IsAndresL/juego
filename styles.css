@@ -1,0 +1,858 @@
+/* ============================================
+   VARIABLES CSS / SISTEMA DE DISEÑO
+   Definimos colores, tipografía, espaciados
+   y efectos reutilizables para todo el juego.
+   ============================================ */
+:root {
+  /* Paleta de colores principal — tonos oscuros */
+  --clr-bg-start: #0a0a0a;
+  --clr-bg-mid: #1a1a1a;
+  --clr-bg-end: #111111;
+
+  /* Colores de acento */
+  --clr-accent: #a78bfa; /* Violeta claro */
+  --clr-accent-glow: #c4b5fd;
+  --clr-accent-dark: #7c3aed;
+
+  /* Colores de retroalimentación */
+  --clr-success: #34d399;
+  --clr-warning: #fbbf24;
+  --clr-danger: #f87171;
+  --clr-info: #60a5fa;
+
+  /* Texto */
+  --clr-text: #e2e8f0;
+  --clr-text-muted: #94a3b8;
+
+  /* Superficies */
+  --clr-surface: rgba(255, 255, 255, 0.06);
+  --clr-surface-hover: rgba(255, 255, 255, 0.1);
+  --clr-border: rgba(255, 255, 255, 0.08);
+
+  /* Tipografía */
+  --font-main: "Outfit", system-ui, sans-serif;
+
+  /* Bordes y sombras */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-glow: 0 0 30px rgba(167, 139, 250, 0.2);
+}
+
+/* ============================================
+   RESET Y ESTILOS BASE
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--clr-text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+
+  /* Fondo degradado animado */
+  background: linear-gradient(
+    135deg,
+    var(--clr-bg-start),
+    var(--clr-bg-mid),
+    var(--clr-bg-end)
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  overflow-x: hidden;
+}
+
+/* Animación del fondo degradado */
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ============================================
+   PARTÍCULAS DE FONDO DECORATIVAS
+   ============================================ */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Generamos partículas flotantes con pseudo-elementos y sombras */
+#particles::before,
+#particles::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: float 20s ease-in-out infinite;
+}
+
+#particles::before {
+  width: 500px;
+  height: 500px;
+  background: var(--clr-accent);
+  top: -100px;
+  right: -150px;
+  animation-duration: 25s;
+}
+
+#particles::after {
+  width: 300px;
+  height: 300px;
+  background: var(--clr-info);
+  bottom: -80px;
+  left: -100px;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -40px) scale(1.05);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(15px, 30px) scale(1.02);
+  }
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   Tarjeta central con efecto de vidrio (glass)
+   ============================================ */
+#game-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem 2rem;
+  border-radius: var(--radius-lg);
+
+  /* Glassmorphism */
+  background: var(--clr-surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--clr-border);
+  box-shadow: var(--shadow-glow);
+
+  /* Animación de entrada */
+  animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   ENCABEZADO
+   ============================================ */
+#game-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.magic-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 0.5rem;
+  display: block;
+  animation: pulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(167, 139, 250, 0.5));
+  border: 2px solid var(--clr-accent);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+#game-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    var(--clr-accent-glow),
+    var(--clr-accent),
+    var(--clr-info)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--clr-text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+  font-weight: 300;
+}
+
+.subtitle strong {
+  color: var(--clr-accent-glow);
+  font-weight: 600;
+}
+
+/* ============================================
+   BOTÓN DE CONFIGURACIÓN (engranaje)
+   ============================================ */
+#game-header {
+  position: relative;
+}
+
+#settings-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--clr-border);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+#settings-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--clr-accent);
+  transform: rotate(45deg);
+}
+
+#settings-toggle.active {
+  background: rgba(167, 139, 250, 0.15);
+  border-color: var(--clr-accent);
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   PANEL DE CONFIGURACIÓN
+   ============================================ */
+#settings-panel {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--clr-border);
+  animation: slideDown 0.3s ease both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#settings-panel h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--clr-text-muted);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.setting-row {
+  margin-bottom: 1rem;
+}
+
+.setting-row:last-of-type {
+  margin-bottom: 1.25rem;
+}
+
+.setting-row label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--clr-text);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.setting-row label span {
+  color: var(--clr-accent-glow);
+  font-weight: 700;
+}
+
+/* Slider personalizado */
+.setting-row input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.setting-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-dark));
+  border: 2px solid var(--clr-accent-glow);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.setting-row input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 14px rgba(167, 139, 250, 0.6);
+}
+
+.setting-row input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-dark));
+  border: 2px solid var(--clr-accent-glow);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+}
+
+/* Botón aplicar configuración */
+#apply-settings-btn {
+  display: block;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--clr-accent-dark), var(--clr-accent));
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
+}
+
+#apply-settings-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(124, 58, 237, 0.45);
+}
+
+#apply-settings-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   BARRA DE INTENTOS RESTANTES
+   ============================================ */
+#attempts-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--clr-border);
+}
+
+#attempts-bar .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--clr-text-muted);
+  white-space: nowrap;
+}
+
+.bar-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--clr-accent), var(--clr-info));
+  transition:
+    width 0.5s ease,
+    background 0.5s ease;
+}
+
+/* Cambiar color de la barra cuando quedan pocos intentos */
+.bar-fill.low {
+  background: linear-gradient(90deg, var(--clr-warning), var(--clr-danger));
+}
+
+.bar-fill.critical {
+  background: var(--clr-danger);
+  animation: barPulse 1s ease-in-out infinite;
+}
+
+@keyframes barPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+#attempts-bar .counter {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-accent-glow);
+  white-space: nowrap;
+}
+
+/* ============================================
+   SECCIÓN DE ENTRADA (INPUT + BOTÓN)
+   ============================================ */
+#input-section {
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+#guess-input {
+  flex: 1;
+  padding: 0.85rem 1.2rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--clr-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--clr-text);
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 600;
+  outline: none;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    background 0.3s;
+  /* Quitar flechas del input number */
+  -moz-appearance: textfield;
+}
+
+#guess-input::-webkit-inner-spin-button,
+#guess-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#guess-input::placeholder {
+  color: var(--clr-text-muted);
+  font-weight: 300;
+}
+
+#guess-input:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#guess-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#guess-btn {
+  padding: 0.85rem 1.8rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--clr-accent-dark),
+    var(--clr-accent)
+  );
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+  white-space: nowrap;
+}
+
+#guess-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+}
+
+#guess-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
+}
+
+#guess-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   RETROALIMENTACIÓN (FEEDBACK)
+   ============================================ */
+#feedback-section {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+#feedback-message {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--clr-border);
+  transition: all 0.3s ease;
+}
+
+/* Clases dinámicas de retroalimentación */
+#feedback-message.feedback-higher {
+  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, 0.08);
+  color: var(--clr-warning);
+}
+
+#feedback-message.feedback-lower {
+  border-color: rgba(96, 165, 250, 0.3);
+  background: rgba(96, 165, 250, 0.08);
+  color: var(--clr-info);
+}
+
+#feedback-message.feedback-correct {
+  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(52, 211, 153, 0.08);
+  color: var(--clr-success);
+  font-weight: 600;
+}
+
+#feedback-message.feedback-gameover {
+  border-color: rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, 0.08);
+  color: var(--clr-danger);
+}
+
+/* Animación de sacudida para intentos fallidos */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}
+
+/* Animación de celebración para acierto */
+@keyframes celebrate {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.celebrate {
+  animation: celebrate 0.5s ease;
+}
+
+/* ============================================
+   HISTORIAL DE INTENTOS
+   ============================================ */
+#history-section {
+  margin-bottom: 1.5rem;
+}
+
+#history-section h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--clr-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.history-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.empty-msg {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  font-style: italic;
+}
+
+/* Cada intento individual (chip / pastilla) */
+.history-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  animation: chipIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 0.2s;
+}
+
+.history-chip:hover {
+  transform: scale(1.08);
+}
+
+@keyframes chipIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Flecha indicadora dentro del chip */
+.chip-arrow {
+  font-size: 0.75rem;
+}
+
+.history-chip.chip-higher {
+  border-color: rgba(251, 191, 36, 0.3);
+  color: var(--clr-warning);
+}
+
+.history-chip.chip-lower {
+  border-color: rgba(96, 165, 250, 0.3);
+  color: var(--clr-info);
+}
+
+.history-chip.chip-correct {
+  border-color: rgba(52, 211, 153, 0.4);
+  color: var(--clr-success);
+  background: rgba(52, 211, 153, 0.1);
+}
+
+/* ============================================
+   BOTÓN DE REINICIO
+   ============================================ */
+#restart-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--clr-accent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--clr-accent-glow);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.2s,
+    box-shadow 0.3s;
+}
+
+#restart-btn:hover {
+  background: rgba(167, 139, 250, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(167, 139, 250, 0.25);
+}
+
+#restart-btn:active {
+  transform: translateY(0);
+}
+
+/* Clase para ocultar elementos */
+.hidden {
+  display: none !important;
+}
+
+/* ============================================
+   RESPONSIVE — Dispositivos móviles
+   ============================================ */
+@media (max-width: 520px) {
+  body {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+
+  #game-container {
+    padding: 1.75rem 1.25rem;
+    border-radius: var(--radius-md);
+  }
+
+  #game-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .magic-icon {
+    font-size: 2.8rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  #guess-btn {
+    width: 100%;
+  }
+
+  #attempts-bar {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #attempts-bar .label {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   CRÉDITOS DEL DESARROLLADOR
+   ============================================ */
+#game-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--clr-border);
+  text-align: center;
+}
+
+#game-footer p {
+  font-size: 0.75rem;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.5px;
+}
+
+#game-footer strong {
+  color: var(--clr-accent-glow);
+  font-weight: 600;
+}
+
+/* Botón secreto — casi invisible */
+#cheat-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0;
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: transparent;
+  font-size: 0;
+  cursor: default;
+  transition: background 0.3s, box-shadow 0.3s;
+  opacity: 0.3;
+}
+
+#cheat-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* Cuando se revela el número */
+#cheat-btn.revealed {
+  width: auto;
+  height: auto;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  color: var(--clr-accent-glow);
+  font-size: 0.7rem;
+  font-family: var(--font-main);
+  font-weight: 600;
+  opacity: 1;
+  cursor: default;
+}
+
+/* ============================================
+   ANIMACIÓN DE CONFETI (canvas overlay)
+   ============================================ */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
